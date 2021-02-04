@@ -15,7 +15,6 @@ class Building
     attr_accessor :name, :num_of_tenants
     attr_reader :address
 
-    @@all_buildings = 0
     @@all_tenants = []
 
     def initialize name, address, num_of_floors, num_of_tenants
@@ -23,16 +22,19 @@ class Building
         @address = address
         @num_of_floors = num_of_floors
         @num_of_tenants = num_of_tenants
-        @@all_buildings += 1
         @@all_tenants << @num_of_tenants
     end
 
+    def self.all_building_reader
+        @@all_tenants
+    end
+
     def self.avg_tenants
-        return @@all_tenants.sum / @@all_buildings
+        self.all_building_reader.sum / self.all_building_reader.length
     end
 
     def placard
-        "#{self.name} is located at #{self.address}."
+        "#{name} is located at #{address}."
     end
 
     def avg_by_floor
