@@ -15,22 +15,22 @@ class Building
     attr_accessor :name, :num_of_tenants
     attr_reader :address
 
-    @@all_tenants = []
+    @@all = []
 
     def initialize name, address, num_of_floors, num_of_tenants
         @name = name
         @address = address
         @num_of_floors = num_of_floors
         @num_of_tenants = num_of_tenants
-        @@all_tenants << @num_of_tenants
+        @@all << self
     end
 
-    def self.all_building_reader
-        @@all_tenants
+    def self.all
+        @@all
     end
 
     def self.avg_tenants
-        self.all_building_reader.sum / self.all_building_reader.length
+        self.all.reduce(0) { |sum, el| sum + el.num_of_tenants } / self.all.length
     end
 
     def placard
