@@ -1,4 +1,5 @@
 require 'pry'
+require 'awesome_print'
 
 # / Build a Ruby class for a `Building` that:
 # / Initializes with a name, address, number of floors, and number of tenants
@@ -12,7 +13,7 @@ require 'pry'
 # / Make objects for the three buildings on this corner. Use a Fermi estimate for the number of tenants.
 
 class Building
-    attr_accessor :name, :num_of_tenants
+    attr_accessor :num_of_tenants, :name
     attr_reader :address
 
     @@all = []
@@ -22,7 +23,12 @@ class Building
         @address = address
         @num_of_floors = num_of_floors
         @num_of_tenants = num_of_tenants
+
         @@all << self
+    end
+
+    def add_tenant num
+        self.num_of_tenants += num
     end
 
     def self.all
@@ -33,7 +39,12 @@ class Building
         self.all.reduce(0) { |sum, el| sum + el.num_of_tenants } / self.all.length
     end
 
+    def new_meth
+        puts "This is a statement"
+    end
+
     def placard
+        new_meth
         "#{name} is located at #{address}."
     end
 
@@ -46,5 +57,6 @@ end
 building1 = Building.new("Sears Tower", "233 S Wacker Dr, Chicago, IL 60606", 108, 2563)
 building2 = Building.new("Chrysler Building", "405 Lexington Ave, New York, NY 10174", 77, 1439)
 building3 = Building.new("One World Trade Center", "285 Fulton St, New York, NY 10007", 94, 2113)
+building4 = Building.new("One World Trade Center", "285 Fulton St, New York, NY 10007", 94, 2113)
 
-binding.pry
+binding.pry 
